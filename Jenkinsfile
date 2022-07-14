@@ -20,10 +20,13 @@ pipeline {
                         break
                         case "All":
                                echo 'All Repo is executed'
+                        dir('repo1 trigger'){
                                echo 'Repo1 Executed'
                                git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git'
+                        }
+                        dir('repo2 trigger'){
                                echo 'RepO2 excuted'
-                               git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'; 
+                               git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'}; 
                         break
                     }
                   }
