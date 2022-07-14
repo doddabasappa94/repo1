@@ -21,13 +21,13 @@ pipeline {
                         case "All":
                         stage('extract'){
                             parallel 'Extract': {
-                               dir ('repo1 trigger'){
+                               dir ('repo1'){
                                echo 'Repo1 Executed'
-                               git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git'
+                               checkout([git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git'])
                                }
-                               dir('repo2 trigger'){
+                               dir('repo2'){
                                echo 'RepO2 excuted'
-                               git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'}}}; 
+                               checkout([git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'])}}}; 
                         break
                     }
                   }
