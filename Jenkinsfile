@@ -20,7 +20,7 @@ pipeline {
                         break
                         case "All":
                         stage('extract'){
-                            parallel {
+                            parallel 'checkout': {
                                dir ('repo1'){
                                echo 'Repo1 Executed'
                                git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git'
