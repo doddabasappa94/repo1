@@ -1,5 +1,8 @@
 pipeline {
     agent any
+        tools {
+       maven 'maven-3.5.0'
+    }
     parameters{
     choice(name: 'CHOICE', choices: ['Repo1', 'Repo2', 'All'], description: 'Which one you want checkout')}
     stages {
