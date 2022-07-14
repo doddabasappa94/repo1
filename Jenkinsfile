@@ -23,11 +23,11 @@ pipeline {
                             parallel {
                                dir ('repo1'){
                                echo 'Repo1 Executed'
-                               checkout([git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git'])
+                               checkout(git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git')
                                }
                                dir('repo2'){
                                echo 'RepO2 excuted'
-                               checkout([git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'])}}}; 
+                               checkout(git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git')}}}; 
                         break
                     }
                   }
