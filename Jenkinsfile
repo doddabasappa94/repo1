@@ -1,81 +1,49 @@
 pipeline {
     agent any
-    stages{
-        stage('checkout'){
-         parallel {
-          stag ('Repo1 checkout') {
+    parameters{
+    choice(name: 'CHOICE', choices: ['Repo1', 'Repo2', 'All'], description: 'Which one you want checkout')}
+    stages {
+          stage ('checkout') {
               steps{
-              checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/doddabasappa94/repo1.git']]])  
+                  script {
+                    switch(params.CHOICE) {
+                        case "Repo1":
+                               echo 'Repo1 is executed'
+                               git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git';
+                        break
+                        case "Repo2": 
+                               echo 'Repo2 is executed'
+                               git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'; 
+                        break
+                        case "All":
+                               echo 'All Repo is executed'
+                               echo 'Repo1 Executed'
+                               git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git'
+                               echo 'RepO2 excuted'
+                               git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'; 
+                        break
+                    }
+                  }
+              
               }
-              }
-             stage(' Repo2 checkout') {
-              steps{
-              checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/doddabasappa94/repo2.git']]])  
-              }
-              }
-         }
-        }
-         stage('Build'){
-         parallel {
-                    stage('Build docker app1 image'){
+          }
+            stage('Build docker image'){
             steps{
                 script{
                     sh 'docker build -t doddabasappah/devops-app1 .'
+                      }
                 }
             }
-        }
-             
-               stage('Build docker app2 image'){
+            stage('Push image to Hub'){
             steps{
                 script{
-                    sh 'docker build -t doddabasappah/devops-app2 .'
+                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) 
+                   {
+                   sh 'docker login -u doddabasappah -p ${dockerhubpwd}' }
+                   sh 'docker push doddabasappah/devops-integration'
                 }
             }
-        }
-         }
-         }
-        stage ('Push') {
-            parallel{
-            stage('Push app1 image to Hub'){
-             steps{
-                script{
-                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   sh 'docker login -u doddabasappah -p ${dockerhubpwd}'
-                     }
-                   sh 'docker push doddabasappah/devops-app1'
-                }
-             }
             }
-            stage('Push app2 image to Hub'){
-             steps{
-                script{
-                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   sh 'docker login -u doddabasappah -p ${dockerhubpwd}'
-                     }
-                   sh 'docker push doddabasappah/devops-app2'
-                }
-             }
-            }
-         }
-         }
-        stage(' Deploy to k8s'){
-              parallel {
-                stage('Deploy app1 to k8s'){
-            steps{
-                script{
-                    kubernetesDeploy (configs: 'deploymentservice1.yaml',kubeconfigId: 'k8sconfigpwd')
-                }
-            }
-         }
-         stage('Deploy app2 to k8s'){
-            steps{
-                script{
-                    kubernetesDeploy (configs: 'deploymentservice2.yaml',kubeconfigId: 'k8sconfigpwd')
-                    }
-                }
-             }
-         }
-        }
-    
     }
+    
 }
