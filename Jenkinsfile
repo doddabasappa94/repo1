@@ -30,6 +30,13 @@ pipeline {
               
               }
           }
+           stage ('Test and Build') {
+             steps{
+             script{
+                 sh 'mvn clean install'
+                  }
+              }
+            }
             stage('Build docker image'){
             steps{
                 script{
