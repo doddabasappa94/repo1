@@ -27,7 +27,7 @@ pipeline {
                                }
                                dir('repo2 trigger'){
                                echo 'RepO2 excuted'
-                               git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'}; 
+                               git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'}}}; 
                         break
                     }
                   }
