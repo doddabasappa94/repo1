@@ -19,33 +19,15 @@ pipeline {
                                git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'; 
                         break
                         case "All":
-                        stages {
-  stage('checkout to Repo1') {
-    parallel {
-      // One or more stages need to be included within the parallel block.
-    }
 
-    options {
-      checkoutToSubdirectory 'Repo1'
-        git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git'
-    }
-  }
-
-  stage('checkout to Repo2') {
-    parallel {
-      // One or more stages need to be included within the parallel block.
-    }
-
-    options {
-      checkoutToSubdirectory 'Repo2'
-        git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'
-    }
-  }
-
-}
-
-                                
-                                ; 
+                        options {
+                        checkoutToSubdirectory 'Repo1'
+                        git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git'
+                            }
+                       options {
+                       checkoutToSubdirectory 'Repo2'
+                       git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git' 
+                         }; 
                         break
                     }
                   }
