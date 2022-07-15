@@ -19,7 +19,7 @@ pipeline {
                                git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'; 
                         break
                         case "All":
-                        for
+                       
                         git 'git branch: \'main\', url: \'https://github.com/doddabasappa94/repo1.git\'' 
                       
                         git 'git branch: \'main\', url: \'https://github.com/doddabasappa94/repo2.git\''; 
