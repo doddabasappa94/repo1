@@ -9,7 +9,7 @@ pipeline {
           stage ('checkout') {
               steps{
                   script {
-                      switch(${params.CHOICE}) {
+                      switch(params.CHOICE) {
                         case "Repo1":
                                echo 'Repo1 is executed'
                                git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git';
