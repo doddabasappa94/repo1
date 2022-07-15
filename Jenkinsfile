@@ -9,26 +9,32 @@ pipeline {
           stage ('checkout') {
               steps{
                   script {
-                    switch(params.CHOICE) {
+                     switch(params.CHOICE) {
                         case "Repo1":
-                               echo 'Repo1 is executed'
-                               git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git';
+                        echo 'rep1 is executed'
+                        git branch: 'main', url: 'https://github.com/doddabasappa94/rep1.git';
                         break
                         case "Repo2": 
-                               echo 'Repo2 is executed'
-                               git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'; 
+                        echo 'Rep2 is executed'
+                        git branch: 'main', url: 'https://github.com/doddabasappa94/rep2.git'; 
                         break
                         case "All":
-
-                        options {
-                        checkoutToSubdirectory 'Repo1'
-                        git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git'
+                        echo 'All Repo is executed'
+                        stages {
+                            stage('Both Repo'){
+                        Parallel {
+                            stage ('Repo1'){
+                                steps{
+                                echo'Repo1 Executed'
+                               git branch: 'main', url: 'https://github.com/doddabasappa94/rep1.git'
                             }
-                       options {
-                       checkoutToSubdirectory 'Repo2'
-                       git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git' 
-                         }; 
+                            }
+                            Stege ('Repo2'){
+                                steps {
+                                echo 'Repo2 excuted'
+                                git branch: 'main', url: 'https://github.com/doddabasappa94/rep2.git'}}}}}; 
                         break
+
                     }
                   }
               
