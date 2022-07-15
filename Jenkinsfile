@@ -21,8 +21,8 @@ pipeline {
                         case "All":
                         parallel'Allrepo':{
                                   git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git'
-                            dir {
-                                git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'}; 
+                            dir{
+                                git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git' }}; 
                         break
                     }
                   }
@@ -54,5 +54,5 @@ pipeline {
             }
             }
     }
-    }
+    
 }
