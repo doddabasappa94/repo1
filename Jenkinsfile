@@ -24,7 +24,7 @@ pipeline {
                                dir ('repo1'){
                                echo 'Repo1 Executed'
                                git branch: 'main', url: 'https://github.com/doddabasappa94/repo1.git'
-                               }
+                               } &&
                                dir('repo2'){
                                echo 'RepO2 excuted'
                                git branch: 'main', url: 'https://github.com/doddabasappa94/repo2.git'}}}; 
